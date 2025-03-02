@@ -33,7 +33,7 @@ class GGUFConfig(QuantizationConfig):
 
     @classmethod
     def get_min_capability(cls) -> int:
-        return 60
+        return 50
 
     @classmethod
     def get_config_filenames(cls) -> List[str]:
