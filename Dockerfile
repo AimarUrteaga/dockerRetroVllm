@@ -16,7 +16,7 @@
 # #--quantization gguf \
 # #--enforce-eager \
 
-# docker build . -t prueva_vllm-openai-base --target vllm-openai-base
+# docker build . -t prueva_vllm-openai --target vllm-openai
 
 
 # en /etc/docker/daemon.json:
@@ -111,19 +111,19 @@ ARG TARGETPLATFORM
 RUN PYTHON_VERSION_STR=$(echo ${PYTHON_VERSION} | sed 's/\.//g') && \
     echo "export PYTHON_VERSION_STR=${PYTHON_VERSION_STR}" >> /etc/environment
 
-RUN echo 'tzdata tzdata/Areas select America' | debconf-set-selections \
-    && echo 'tzdata tzdata/Zones/America select Los_Angeles' | debconf-set-selections \
-    && apt-get update -y \
-    && apt-get install -y ccache software-properties-common git curl wget sudo vim python3-pip \
-    && apt-get install -y ffmpeg libsm6 libxext6 libgl1 \
-    && add-apt-repository ppa:deadsnakes/ppa \
-    && apt-get update -y \
-    && apt-get install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-dev python${PYTHON_VERSION}-venv libibverbs-dev \
-    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1 \
-    && update-alternatives --set python3 /usr/bin/python${PYTHON_VERSION} \
-    && ln -sf /usr/bin/python${PYTHON_VERSION}-config /usr/bin/python3-config \
-    && curl -sS https://bootstrap.pypa.io/get-pip.py | python${PYTHON_VERSION} \
-    && python3 --version && python3 -m pip --version
+RUN echo 'tzdata tzdata/Areas select America' | debconf-set-selections
+RUN echo 'tzdata tzdata/Zones/America select Los_Angeles' | debconf-set-selections
+RUN apt-get update -y
+RUN apt-get install -y ccache software-properties-common git curl wget sudo vim python3-pip
+RUN apt-get install -y ffmpeg libsm6 libxext6 libgl1
+RUN add-apt-repository ppa:deadsnakes/ppa
+RUN apt-get update -y
+RUN apt-get install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-dev python${PYTHON_VERSION}-venv libibverbs-dev
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1
+RUN update-alternatives --set python3 /usr/bin/python${PYTHON_VERSION}
+RUN ln -sf /usr/bin/python${PYTHON_VERSION}-config /usr/bin/python3-config
+RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python${PYTHON_VERSION}
+RUN python3 --version && python3 -m pip --version
 
 RUN ldconfig /usr/local/cuda-$(echo $CUDA_VERSION | cut -d. -f1,2)/compat/
 
