@@ -213,7 +213,10 @@ ARG CUDA_VERSION
 ARG PYTHON_VERSION
 ARG TARGETPLATFORM
 ARG torch_cuda_arch_list
+
 ENV DEBIAN_FRONTEND=noninteractive
+ENV TARGETPLATFORM=${TARGETPLATFORM}
+
 
 # Install Python and other dependencies
 RUN echo 'tzdata tzdata/Areas select America' | debconf-set-selections \
@@ -302,7 +305,6 @@ WORKDIR /workspace
 
 
 FROM base-pytorch-adapter AS build
-ARG TARGETPLATFORM
 ARG max_jobs
 ARG nvcc_threads
 
@@ -370,9 +372,13 @@ RUN if [ "$RUN_WHEEL_CHECK" = "true" ]; then \
 FROM nvidia/cuda:${CUDA_VERSION}-devel-ubuntu22.04 AS vllm-base
 ARG CUDA_VERSION
 ARG PYTHON_VERSION
-WORKDIR /vllm-workspace
-ENV DEBIAN_FRONTEND=noninteractive
 ARG TARGETPLATFORM
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TARGETPLATFORM=${TARGETPLATFORM}
+
+WORKDIR /vllm-workspace
+
 
 RUN PYTHON_VERSION_STR=$(echo ${PYTHON_VERSION} | sed 's/\.//g') && \
     echo "export PYTHON_VERSION_STR=${PYTHON_VERSION_STR}" >> /etc/environment
@@ -482,6 +488,10 @@ WORKDIR /workspace
 
 # base openai image with additional requirements, for any subsequent openai-style images
 FROM vllm-base-pytorch-adapter AS vllm-openai-base
+
+ARG torch_cuda_arch_list
+
+ENV TORCH_CUDA_ARCH_LIST=${torch_cuda_arch_list}
 
 # install additional dependencies for openai api server
 RUN --mount=type=cache,target=/root/.cache/pip \
