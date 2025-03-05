@@ -274,9 +274,11 @@ ARG pytorch_Version
 WORKDIR /
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    cmake \
+#    cmake \
     ninja-build \
     rust-1.80-all
+
+RUN python3 -m pip install cmake
 
 RUN git clone https://github.com/pytorch/pytorch.git
 
@@ -456,9 +458,11 @@ ARG pytorch_Version
 WORKDIR /
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    cmake \
+#    cmake \
     ninja-build \
     rust-1.80-all
+
+RUN python3 -m pip install cmake
 
 RUN git clone https://github.com/pytorch/pytorch.git
 
