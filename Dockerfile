@@ -67,7 +67,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 ENV TORCH_CUDA_ARCH_LIST=${torch_cuda_arch_list}
 ENV VLLM_FA_CMAKE_GPU_ARCHES=${vllm_fa_cmake_gpu_arches}
 
-FROM base AS base-torchVision-torchAudio
+FROM base AS base-torchvision-torchaudio
 
 ARG pytorch_Vision_Version
 ARG pytorch_Audio_Version
@@ -77,7 +77,7 @@ ENV pytorch_Audio_Version=${pytorch_Audio_Version}
 
 RUN python3 -m pip install torchvision==${pytorch_Vision_Version} torchaudio==${pytorch_Audio_Version}
 
-FROM base-torchVision-torchAudio AS base-pytorch
+FROM base-torchvision-torchaudio AS base-pytorch
 
 ARG pytorch_Version
 
@@ -251,7 +251,7 @@ COPY requirements-build.txt requirements-build.txt
 RUN --mount=type=cache,target=/root/.cache/pip \
     python3 -m pip install -r requirements-build.txt
 
-FROM vllm-base AS vllm-base-torchVision-torchAudio
+FROM vllm-base AS vllm-base-torchvision-torchaudio
 
 ARG pytorch_Vision_Version
 ARG pytorch_Audio_Version
@@ -262,7 +262,7 @@ ENV pytorch_Audio_Version=${pytorch_Audio_Version}
 RUN python3 -m pip install torchvision==${pytorch_Vision_Version} torchaudio==${pytorch_Audio_Version}
 
 
-FROM vllm-base-torchVision-torchAudio AS vllm-base-pytorch
+FROM vllm-base-torchvision-torchaudio AS vllm-base-pytorch
 
 ARG pytorch_Version
 
