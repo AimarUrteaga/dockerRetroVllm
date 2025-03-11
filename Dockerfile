@@ -7,8 +7,8 @@ ARG vllm_fa_cmake_gpu_arches='50-real;70-real;90-real'
 ARG pytorch_Version=2.5.1
 ARG pytorch_Vision_Version=0.20.1
 ARG pytorch_Audio_Version=2.5.1
-ARG max_jobs=2
-ARG nvcc_threads=8
+ARG max_jobs=24
+ARG nvcc_threads=24
 
 
 FROM nvidia/cuda:${CUDA_VERSION}-devel-ubuntu20.04 AS base
