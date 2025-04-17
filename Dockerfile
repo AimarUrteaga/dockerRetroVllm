@@ -94,7 +94,7 @@ RUN python3 -m pip install cmake
 
 RUN git clone https://github.com/AimarUrteaga/dockerRetroVllm.git
 
-WORKDIR /pytorch
+WORKDIR /pytorchDockerRetroVllm
 
 RUN pip install -r requirements.txt
 RUN pip install mkl-static mkl-include
@@ -104,7 +104,7 @@ ARG torch_cuda_arch_list
 
 ENV TORCH_CUDA_ARCH_LIST=${torch_cuda_arch_list}
 
-WORKDIR /pytorch
+WORKDIR /pytorchDockerRetroVllm
 
 RUN make triton
 RUN python3 setup.py develop
@@ -276,7 +276,7 @@ RUN python3 -m pip install cmake
 
 RUN git clone https://github.com/AimarUrteaga/dockerRetroVllm.git
 
-WORKDIR /pytorch
+WORKDIR /pytorchDockerRetroVllm
 
 RUN pip install -r requirements.txt
 RUN pip install mkl-static mkl-include
@@ -286,7 +286,7 @@ ARG torch_cuda_arch_list
 
 ENV TORCH_CUDA_ARCH_LIST=${torch_cuda_arch_list}
 
-WORKDIR /pytorch
+WORKDIR /pytorchDockerRetroVllm
 
 RUN make triton
 RUN python3 setup.py develop
