@@ -92,12 +92,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN python3 -m pip install cmake
 
-RUN git clone https://github.com/pytorch/pytorch.git
+RUN git clone https://github.com/AimarUrteaga/dockerRetroVllm.git
 
 WORKDIR /pytorch
-
-RUN git checkout v${pytorch_Version}
-RUN git submodule update --init --recursive
 
 RUN pip install -r requirements.txt
 RUN pip install mkl-static mkl-include
@@ -277,12 +274,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN python3 -m pip install cmake
 
-RUN git clone https://github.com/pytorch/pytorch.git
+RUN git clone https://github.com/AimarUrteaga/dockerRetroVllm.git
 
 WORKDIR /pytorch
-
-RUN git checkout v${pytorch_Version}
-RUN git submodule update --init --recursive
 
 RUN pip install -r requirements.txt
 RUN pip install mkl-static mkl-include
