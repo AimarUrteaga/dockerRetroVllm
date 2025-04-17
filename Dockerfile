@@ -86,13 +86,13 @@ ENV pytorch_Version=${pytorch_Version}
 WORKDIR /
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-#    cmake \
+    cmake \
     ninja-build \
     rust-1.80-all
 
 RUN python3 -m pip install cmake
 
-RUN git clone https://github.com/AimarUrteaga/dockerRetroVllm.git
+RUN git clone https://github.com/AimarUrteaga/pytorchDockerRetroVllm.git
 
 WORKDIR /pytorchDockerRetroVllm
 
@@ -268,13 +268,13 @@ ENV pytorch_Version=${pytorch_Version}
 WORKDIR /
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-#    cmake \
+    cmake \
     ninja-build \
     rust-1.80-all
 
 RUN python3 -m pip install cmake
 
-RUN git clone https://github.com/AimarUrteaga/dockerRetroVllm.git
+RUN git clone https://github.com/AimarUrteaga/pytorchDockerRetroVllm.git
 
 WORKDIR /pytorchDockerRetroVllm
 
